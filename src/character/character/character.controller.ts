@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CharacterService } from './character.service';
 import { Character } from 'src/model/character';
+import { AuthGuard } from 'src/core/auth/auth.guard';
 
 @Controller('character')
 export class CharacterController {
@@ -17,6 +18,7 @@ export class CharacterController {
     }
 
     @Post()
+    @UseGuards(AuthGuard)
     add(@Body() character: Character): Character {
         return this.characterService.create(character);
     }
